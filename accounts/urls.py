@@ -17,4 +17,14 @@ urlpatterns = [
     path('edit_profile/', views.edit_profile, name='edit_profile'),
     path('change_password/', views.change_password, name='change_password'),
     path('order_detail/<int:order_id>/', views.order_detail, name='order_detail'),
+    
+    # business
+    path('login/business_login/', views.business_login, name='business_login'),
+    path('business/dashboard/', views.business_dashboard, name='business_dashboard'),
+    
+    # enter business details
+    path('business_detail/<int:user_id>/', views.business_detail, name='business_detail'),
+    
+    
+    # path('business_register/', views.register, name='business_register'),
 ]

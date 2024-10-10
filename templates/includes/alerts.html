@@ -10,4 +10,15 @@
     </div>
     {% endfor %}
     
+    <script>
+        function removeMessageComponent() {
+            let messageComponent = document.querySelector("#message");
+            setTimeout(() => {
+                messageComponent.style.display = "none";
+            }, 3000);
+        }
+        
+        removeMessageComponent();
+    </script>
+    
 {% endif %}

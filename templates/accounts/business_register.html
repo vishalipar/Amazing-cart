@@ -10,31 +10,34 @@
             {% include "includes/alerts.html" %}
             
             <div class=''>
-                <header class="mb-3 d-flex justify-content-between">
+                <header class="mb-4 d-flex justify-content-between">
                     <h4 class="card-title">Sign up</h4>
-                    {% comment %} <div class='d-flex'>
+                    <div class='d-flex'>
                         <p class='pt-2'>Register as </p>
-                         
-                        {{form.type}}
+                        <select class='m-2' id="cars" name="cars">
+                        <option value="volvo"><a href="/">User</a></option>
+                        <option value="volvo"><a href="/">Business owner</a></option>
+                        </select>
                         
-                    </div> {% endcomment %}
+                        {% comment %} <div class="dropdown">
+                            <button class="btn dropdown-toggle border-0" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
+                                Business Owner
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                              <li><a class="dropdown-item" href="register" target="_blank">User</a></li>
+                            </ul>
+                          </div> {% endcomment %}
+                        
+                    </div>
 
                 </header>
+                
                 
             </div>
             
             
             <form action="{% url 'register' %}" method='POST'>
                 {% csrf_token %}
-                
-                    <div class="form-row">
-                        <div class='d-flex'>
-                            <p class='pt-2'>Register as </p>
-                             
-                            {{form.type}}
-                            
-                        </div>
-                    </div>
                 
                     <div class="form-row">
                         <div class="col form-group">

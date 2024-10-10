@@ -1,10 +1,10 @@
-from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
+from django.db import models
 
 # Create your models here.
 
 class MyAccountManager(BaseUserManager):
-    def create_user(self, first_name, last_name, username, email, password=None):
+    def create_user(self, first_name, last_name, username, email, type, password=None):
         if not email:
             raise ValueError('User must have an Email address')
         
@@ -16,6 +16,7 @@ class MyAccountManager(BaseUserManager):
             username = username,
             first_name = first_name,
             last_name = last_name,
+            type = type,
         )
         
         user.set_password(password)
@@ -37,6 +38,13 @@ class MyAccountManager(BaseUserManager):
         user.is_superadmin = True
         user.save(using = self._db)
         return user
+    
+# *
+type_choices = [
+    ('user', 'user'),
+    ('business', 'business'),
+
+]
 
 class Account(AbstractBaseUser):
     first_name = models.CharField(max_length=50)
@@ -44,6 +52,8 @@ class Account(AbstractBaseUser):
     username = models.CharField(max_length=50, unique=True)
     email = models.EmailField(max_length=100, unique=True)
     phone_number = models.CharField(max_length=50)
+    
+    type = models.CharField(max_length=20, choices=type_choices, default='user')
     
     # required
     date_joined = models.DateTimeField(auto_now_add=True)
@@ -87,3 +97,7 @@ class UserProfile(models.Model):
     
     def full_address(self):
         return f'{self.address_line_1} {self.address_line_2}'
+    
+    
+# class BusinessAccount(AbstractBaseUser):
+#     email = email

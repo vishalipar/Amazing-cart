@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, UserProfile
+from .models import Account, UserProfile, type_choices
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -8,9 +8,15 @@ class RegistrationForm(forms.ModelForm):
     confirm_password = forms.CharField(widget=forms.PasswordInput(attrs={
         'placeholder':'Confirm Password',
     }))
+    
+    # *
+    # type = forms.ChoiceField(choices=type_choices, widget=forms.Select,initial='user', required=False)
+
+
+    
     class Meta:
         model = Account
-        fields =  ['first_name','last_name','phone_number','email','password']
+        fields =  ['first_name','last_name','phone_number','email','password','type']
         
     def __init__(self, *args, **kwargs):
         super(RegistrationForm, self).__init__(*args, **kwargs)
@@ -57,3 +63,13 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
        
+
+# # business registration form
+# class BusinessRegistrationForm(forms.ModelForm):
+#     class Meta:
+#         model = Account
+#         fields = ['email']
+        
+#     def __init__(self, *args, **kwargs):
+#         super(BusinessRegistrationForm, self).__init__(*args,**kwargs)
+#         self.fields['email'].widget.attrs['placeholder'] = "Enter email address"
