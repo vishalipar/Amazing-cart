@@ -58,7 +58,11 @@
                         <div class="widget-header">
                             <small class="title text-muted">Welcome {{ user.first_name }}!</small>
                             <div> 
-                                <a href="{% url 'dashboard' %}">Dashboard</a> <span class="dark-transp"> | </span>
+                                {% if user.type == 'business' %}
+                                <a href="{% url 'business_dashboard'%}">Business Dashboard</a>
+                                {% else %}
+                                <a href="{% url 'dashboard' %}">
+                                Dashboard</a>{% endif %} <span class="dark-transp"> | </span>
                                 <a href="{% url 'logout' %}"> Logout</a>
                             </div>
                         </div>

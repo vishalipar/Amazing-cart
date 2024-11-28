@@ -1,5 +1,5 @@
 from django import forms
-from .models import Account, UserProfile, type_choices
+from .models import Account, UserProfile, type_choices, BusinessDetails
 
 class RegistrationForm(forms.ModelForm):
     password = forms.CharField(widget=forms.PasswordInput(attrs={
@@ -12,8 +12,6 @@ class RegistrationForm(forms.ModelForm):
     # *
     # type = forms.ChoiceField(choices=type_choices, widget=forms.Select,initial='user', required=False)
 
-
-    
     class Meta:
         model = Account
         fields =  ['first_name','last_name','phone_number','email','password','type']
@@ -27,9 +25,6 @@ class RegistrationForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
             
-        
-        
-        
     def clean(self):
         cleaned_data = super(RegistrationForm, self).clean()
         password = cleaned_data.get('password')
@@ -63,6 +58,10 @@ class UserProfileForm(forms.ModelForm):
         for field in self.fields:
             self.fields[field].widget.attrs['class'] = 'form-control'
        
+class BusinessDetailForm(forms.ModelForm):
+    class Meta:
+        models = BusinessDetails
+        fields = ('user', 'bname', 'btype', 'baddress', 'bpostalcode', 'bcity', 'state')
 
 # # business registration form
 # class BusinessRegistrationForm(forms.ModelForm):
@@ -73,3 +72,15 @@ class UserProfileForm(forms.ModelForm):
 #     def __init__(self, *args, **kwargs):
 #         super(BusinessRegistrationForm, self).__init__(*args,**kwargs)
 #         self.fields['email'].widget.attrs['placeholder'] = "Enter email address"
+
+# upload product.
+# trying//////////////////////////////////////////////
+# class productUploadForm(forms.ModelForm):
+#     class Meta:
+#         model = ProductUpload
+#         fields = ('product_type', 'image','related_images', 'price','quantity/stock')
+        
+#     def __init__(self, *args, **kwargs):
+#         super(UserForm, self).__init__(*args, **kwargs)
+#         for field in self.fields:
+#             self.fields[field].widget.attrs['class'] = 'form-control'

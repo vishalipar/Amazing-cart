@@ -15,9 +15,9 @@ from carts.models import Cart, CartItem
 from carts.views import _cart_id
 from orders.models import Order, OrderProduct
 
-from .forms import RegistrationForm, UserForm, UserProfileForm
-from .models import Account, UserProfile
-
+from .forms import RegistrationForm, UserForm, UserProfileForm, BusinessDetailForm
+from .models import Account, UserProfile, BusinessDetails
+from store.models import Product
 
 def register(request):
     if request.method == 'POST':
@@ -64,13 +64,9 @@ def register(request):
 
 def login(request):
     if request.method == 'POST':
-        
-        
         email = request.POST['email']
         password = request.POST['password']
-        
         user = auth.authenticate(email=email, password=password)
-        
         
         # for business accounts
         # print(user.type)
@@ -401,8 +397,28 @@ def business_login(request):
 # enter business details
 def business_detail(request, user_id):
     user = Account.objects.get(pk=user_id)
-    # print(user)
-    context={
+    print(user.first_name)
+    if request.method == 'POST':
+        print(user.email)
+        
+        form = BusinessDetailForm(request.POST)
+        if form.is_valid():
+            details = form.save(commit=False)
+            # details.user = user
+            details.save()
+        
+    # if request.method == 'POST':
+    #     bname = request.POST['bname']
+    #     btype = request.POST['btype']
+    #     baddress = request.POST['baddress']
+    #     bpostalcode = request.POST['bpostalcode']
+    #     bcity = request.POST['bcity']
+    #     state = request.POST['state']
+        
+    #     details = BusinessDetails(user=user, bname=bname, btype=btype, baddress=baddress, bpostalcode=bpostalcode, bcity=bcity, state=state)
+    #     details.save()
+    
+    context = {
         'user':user,
     }
     return render(request, 'business/business_detail.html', context)
@@ -410,3 +426,15 @@ def business_detail(request, user_id):
 
 def business_dashboard(request):
     return render(request, 'business/dashboard.html')
+
+
+def myproducts(request):
+    product = Product.objects.all()
+    context = {
+        'product':product,
+    }
+    return render(request, 'business/myproducts.html', context)
+
+
+def upload_products(request):
+    return render(request, 'business/upload_products.html')

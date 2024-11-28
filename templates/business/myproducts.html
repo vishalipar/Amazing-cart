@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<section class="section-conten padding-y bg">
+
+    {% include "includes/alerts.html" %}
+    <div class="container">
+        <div class="row">
+        {% include "bincludes/dashboard_sidebar.html" %}
+        <main class="col-md-9">
+            <article class="card">
+            <header class="card-header d-flex justify-content-between">
+                <h2><strong class="d-inline-block mr-3">My Products</strong></h2>
+                <a href="{% url 'upload_products' %}" class='border border-gray p-2'>Upload Product</a>
+            </header>
+            <div class="card-body">
+                <div class="row"> 
+                    {% for p in product %}
+                    
+					<div class="col-md-4">
+						<div class="card"  style = ''>
+							<div class="card-body">
+                                
+                                <img src="{{p.images.url}}" alt="" style='width: 100%;'>
+								{{p.product_name}}
+							</div>
+						</div>
+					</div>
+                    {% endfor %}
+                    
+				</div>
+            </div> <!-- card-body .// -->
+            <div class="table-responsive">
+            
+            </div> <!-- table-responsive .end// -->
+            </article> <!-- order-group.// --> 
+        </main>
+    </div> <!-- row.// -->
+    </div>
+    
+    
+    </section>
+
+
+
+{% endblock %}

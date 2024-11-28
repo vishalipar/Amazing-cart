@@ -1,7 +1,5 @@
 {% extends "base.html" %}
-
 {% block content %}
-
 <section class="section-content padding-y">
 
     <!-- ============================ COMPONENT REGISTER   ================================= -->
@@ -20,19 +18,14 @@
                     </div> {% endcomment %}
 
                 </header>
-                
             </div>
-            
             
             <form action="{% url 'register' %}" method='POST'>
                 {% csrf_token %}
-                
                     <div class="form-row">
                         <div class='d-flex'>
                             <p class='pt-2'>Register as </p>
-                             
                             {{form.type}}
-                            
                         </div>
                     </div>
                 

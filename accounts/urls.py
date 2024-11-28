@@ -24,6 +24,8 @@ urlpatterns = [
     
     # enter business details
     path('business_detail/<int:user_id>/', views.business_detail, name='business_detail'),
+    path('myproducts/', views.myproducts, name='myproducts'),
+    path('upload_products/', views.upload_products, name='upload_products'),
     
     
     # path('business_register/', views.register, name='business_register'),

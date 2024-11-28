@@ -6,7 +6,7 @@ from carts.models import CartItem
 from django.core.paginator import EmptyPage,PageNotAnInteger,Paginator
 from django.http import HttpResponse
 from django.db.models import Q
-from .forms import ReviewForm
+from .forms import ReviewForm, ProductUploadForm
 from django.contrib import messages
 from orders.models import OrderProduct
 
@@ -103,3 +103,16 @@ def submit_review(request, product_id):
                 data.save()
                 messages.success(request,"Thank you! Your review has been submitted.")
                 return redirect(url)
+            
+            
+            
+# business product upload
+def upload_products(request):
+    form = ProductUploadForm()
+    if request.method == 'POST':
+        product_name = request.POST['product_name']
+    
+    context = {
+        'form':form,
+    }
+    return render(request, 'business/upload_products.html')

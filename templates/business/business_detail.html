@@ -19,7 +19,7 @@
             </div>
             
             
-            <form action="{% url 'register' %}" method='POST'>
+            <form action="{% url 'business_dashboard' %}" method='POST'>
                 {% csrf_token %}
                 
                     <b>Contact Information</b><br>
@@ -33,7 +33,8 @@
                     <hr>
                     <b>Business Information</b><br>
                     <label for="bname">Business Name</label>
-                    <input type="text" name="bname" id="" class='w-100'>
+                    {% comment %} <input type="text" name="bname" id="" class='w-100'> {% endcomment %}
+                    {{form.bname}}
                     <label for="bname">Business Type</label><br>
                     <select name="btype" id="" class='form-control w-100'>
                         <option name="wears">Wears</option>

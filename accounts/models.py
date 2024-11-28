@@ -87,7 +87,7 @@ class UserProfile(models.Model):
     user = models.OneToOneField(Account, on_delete=models.CASCADE)
     address_line_1 = models.CharField(blank=True, max_length=100)
     address_line_2 = models.CharField(blank=True, max_length=100)
-    profile_picture = models.ImageField(blank=True, upload_to='userprofile')
+    profile_picture = models.ImageField(blank=True, upload_to='userprofile', default=None)
     city = models.CharField(blank=True, max_length=20)
     state = models.CharField(blank=True, max_length=20)
     country = models.CharField(blank=True, max_length=20)
@@ -99,5 +99,15 @@ class UserProfile(models.Model):
         return f'{self.address_line_1} {self.address_line_2}'
     
     
-# class BusinessAccount(AbstractBaseUser):
-#     email = email
+class BusinessDetails(models.Model):
+    user = models.ForeignKey(Account, on_delete=models.CASCADE)
+    
+    bname = models.CharField(max_length=40)
+    btype = models.CharField(max_length=40)
+    baddress = models.CharField(max_length=40)
+    bpostalcode = models.CharField(max_length=40)
+    bcity = models.CharField(max_length=40)
+    state = models.CharField(max_length=40)
+    
+    def __str__(self):
+        return self.bname
